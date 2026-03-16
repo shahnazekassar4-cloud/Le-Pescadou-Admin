@@ -21,6 +21,15 @@
           "labels": [],
           "checkboxes": [],
           "comments": []
+        },
+        {
+          "id": "7d901e7c-ba58-4287-a668-6e5add7fa476",
+          "listId": "70ef7162-505b-46b6-8adf-53f5c83d4e88",
+          "title": "ajuster les popu en format ordinateur",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
         }
       ]
     },
@@ -39,8 +48,7 @@
     "lists": [
       {
         "id": "55f18e69-b096-48ad-85ce-e7a400a8997d",
-        "title": "Backlog",
-        "cards": []
+        "title": "Backlog"
       }
     ],
     "cards": []
