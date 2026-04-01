@@ -1,18 +1,50 @@
 import "../App.css";
-import { listeCategories } from "../listes/listeCategories";
 import { Head } from "../composants/Head";
-import { listeProduits } from "../listes/listeProduits";
-import type { typeProduit } from "../listes/listeProduits";
 import { ComposantProduit } from "../composants/ComposantProduit";
 import { useState } from "react";
 import { ComposantAddProduit } from "../composants/ComposantAddProduit";
 import { ComposantEdit } from "../composants/ComposantEdit";
 import { ChildrenEditCategories } from "../composants/ChildrenEditCategories";
 import { ChildrenEditDescriptionCatégorie } from "../composants/ChildrenEditDescriptionCatégorie";
+import { useEffect } from "react";
+import type { typeProduit } from "../composants/ComposantProduit";
+import fetchJSON from "../backend/fetchJSON";
 
 export default function Menu() {
+  // CATEGORIES
+  type typeCategorie = { id: number; nom: string; description: string };
+
+  const [categorie, setCategorie] = useState<typeCategorie[]>([]);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      // nécessaire avant un await
+      const reponse = await fetchJSON({
+        // tout ce qui est après attend
+        url: "categories", //ca va tapper dans http:localhost:1337/api/produits | tu peux aller voir dans fetchJSON si tu veux voir comment ca marche
+        method: "GET",
+      });
+      setCategorie(reponse.data);
+    };
+    getCategories();
+  }, []);
+  // PARODUITS
+  const [produit, setProduit] = useState<typeProduit[]>([]);
+
+  useEffect(() => {
+    const getProduits = async () => {
+      const reponse = await fetchJSON({
+        url: "produits?populate=categorie",
+        method: "GET",
+      });
+      setProduit(reponse.data);
+    };
+    getProduits();
+  }, []);
+
+  // filtre
   const [selectedCategorieId, setSelectedCategorieId] = useState<number>(2);
-  const selectedCategorie = listeCategories.find(
+  const selectedCategorie = categorie.find(
     (categorie) => categorie.id === selectedCategorieId,
   );
 
@@ -28,7 +60,7 @@ export default function Menu() {
             penStrokeWidth={"2"}
             popupTitle={"Modifier catégories"}
           />
-          {listeCategories.map((categorie) => {
+          {categorie?.map((categorie: typeCategorie) => {
             return (
               <button
                 onClick={() => {
@@ -42,7 +74,7 @@ export default function Menu() {
                  : "border-transparent bg-red-50"
              } `}
               >
-                {categorie.nomCategorie}
+                {categorie.nom}
               </button>
             );
           })}
@@ -59,20 +91,33 @@ export default function Menu() {
             popupTitle={"Modifier description catégorie"}
           ></ComposantEdit>
 
-          <div className="w-full">
-            {selectedCategorie!.descriptionCategorie}
-          </div>
+          <div className="w-full">{selectedCategorie?.description}</div>
         </div>
         <div className="mb-20">
-          {listeProduits
-            .filter((produit: typeProduit) => {
-              return produit.idCategorie === selectedCategorieId;
+          {produit
+            ?.filter((produit: typeProduit) => {
+              return produit.categorie?.id === selectedCategorieId;
             })
             .map((produit: typeProduit) => {
-              return <ComposantProduit produit={produit} />;
+              return (
+                <ComposantProduit
+                  produit={{
+                    id: produit.id,
+                    nom: produit.nom,
+                    description: produit.description,
+                    prix: produit.prix,
+                    image: produit.image,
+                    categorie: {
+                      id: produit.categorie.id,
+                      nom: produit.categorie.nom,
+                    },
+                  }}
+                />
+              );
             })}
         </div>
       </div>
+
       <div className="fixed bottom-8 right-0 left-0">
         <ComposantAddProduit />
       </div>
