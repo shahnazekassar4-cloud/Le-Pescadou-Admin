@@ -30,6 +30,15 @@
           "labels": [],
           "checkboxes": [],
           "comments": []
+        },
+        {
+          "id": "cb886ae5-7058-4714-8bd8-d846a9c7f7bb",
+          "listId": "70ef7162-505b-46b6-8adf-53f5c83d4e88",
+          "title": "rendre le fond des pop up clicable , àa marche pour Ajouter un Porudit pourtant",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
         }
       ]
     },
