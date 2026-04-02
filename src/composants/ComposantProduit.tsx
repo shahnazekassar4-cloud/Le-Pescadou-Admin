@@ -2,19 +2,11 @@ import defautImg from "/imageProduitDefaut.png";
 import Popup from "./Popup";
 import { useState } from "react";
 import { ChildrenEditProduit } from "./ChildrenEditProduit";
-export type typeProduit = {
-  id: number;
-  nom: string;
-  description: string;
-  prix: string;
-  image: string;
-  categorie: {
-    id: number;
-    nom: string;
-  };
-};
+import type { typeProduit } from "../pages/Menu";
+
 type ComposantProduitProps = {
   produit: typeProduit;
+  onSelect: () => void;
 };
 
 export function ComposantProduit(props: ComposantProduitProps) {
@@ -41,7 +33,7 @@ export function ComposantProduit(props: ComposantProduitProps) {
       <Popup
         isVisible={popupVisible}
         onClose={closePopup}
-        children={<ChildrenEditProduit />}
+        children={<ChildrenEditProduit produit={produit} />}
         title={"Modifier produit"}
       />
     </div>
