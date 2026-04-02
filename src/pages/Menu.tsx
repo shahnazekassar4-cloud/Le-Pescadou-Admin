@@ -7,12 +7,23 @@ import { ComposantEdit } from "../composants/ComposantEdit";
 import { ChildrenEditCategories } from "../composants/ChildrenEditCategories";
 import { ChildrenEditDescriptionCatégorie } from "../composants/ChildrenEditDescriptionCatégorie";
 import { useEffect } from "react";
-import type { typeProduit } from "../composants/ComposantProduit";
 import fetchJSON from "../backend/fetchJSON";
+
+export type typeProduit = {
+  id: number;
+  nom: string;
+  description: string;
+  prix: string;
+  image: string;
+  categorie: {
+    id: number;
+    nom: string;
+  };
+};
+export type typeCategorie = { id: number; nom: string; description: string };
 
 export default function Menu() {
   // CATEGORIES
-  type typeCategorie = { id: number; nom: string; description: string };
 
   const [categorie, setCategorie] = useState<typeCategorie[]>([]);
 
@@ -28,7 +39,9 @@ export default function Menu() {
     };
     getCategories();
   }, []);
+
   // PARODUITS
+
   const [produit, setProduit] = useState<typeProduit[]>([]);
 
   useEffect(() => {
@@ -46,6 +59,11 @@ export default function Menu() {
   const [selectedCategorieId, setSelectedCategorieId] = useState<number>(2);
   const selectedCategorie = categorie.find(
     (categorie) => categorie.id === selectedCategorieId,
+  );
+
+  // selection produit
+  const [selectedProduit, setSelectedProduit] = useState<typeProduit | null>(
+    null,
   );
 
   return (
@@ -112,6 +130,7 @@ export default function Menu() {
                       nom: produit.categorie.nom,
                     },
                   }}
+                  onSelect={() => setSelectedProduit(produit)}
                 />
               );
             })}
