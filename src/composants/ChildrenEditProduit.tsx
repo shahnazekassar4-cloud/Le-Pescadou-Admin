@@ -9,25 +9,25 @@ export function ChildrenEditProduit(props: ChildrenEditProduitProps) {
   const [nom, setNom] = useState(props.produit.nom);
   const [description, setDescription] = useState(props.produit.description);
   const [prix, setPrix] = useState(props.produit.prix);
-  console.log("ID produit:", props.produit.id); // Ajoute ça avant le fetchJSON
-  const postProduit = async (e: any) => {
+
+  const putProduit = async (e: any) => {
     e.preventDefault();
     const reponse = await fetchJSON({
-      url: `produits/${props.produit.id}`, // cible le produit existant
+      url: `produits/${props.produit.documentId}`, // cible le produit existant
       method: "PUT",
       body: {
         data: {
           nom,
           description,
           prix,
-          categorie: props.produit.categorie.id, // conserver la catégorie
+          categorie: props.produit.categorie.documentId, // conserver la catégorie
         },
       },
     });
   };
 
   return (
-    <form onSubmit={postProduit} className="flex flex-col gap-3">
+    <form onSubmit={putProduit} className="flex flex-col gap-3">
       <div className="hover:cursor-pointer border border-dashed  rounded-full aspect-square w-20 flex justify-center items-center text-center text-xl">
         +
       </div>

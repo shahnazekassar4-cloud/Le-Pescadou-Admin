@@ -75,7 +75,7 @@ export function ChildrenAddProduit() {
           Choisir une catégorie
         </option>
         {categories.map((cat) => (
-          <option key={cat.id} value={cat.id}>
+          <option key={cat.documentId} value={cat.documentId}>
             {cat.nom}
           </option>
         ))}

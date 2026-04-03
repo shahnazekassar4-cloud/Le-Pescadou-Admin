@@ -10,17 +10,21 @@ import { useEffect } from "react";
 import fetchJSON from "../backend/fetchJSON";
 
 export type typeProduit = {
-  id: number;
+  documentId: string;
   nom: string;
   description: string;
   prix: string;
   image: string;
   categorie: {
-    id: number;
+    documentId: string;
     nom: string;
   };
 };
-export type typeCategorie = { id: number; nom: string; description: string };
+export type typeCategorie = {
+  documentId: number;
+  nom: string;
+  description: string;
+};
 
 export default function Menu() {
   // CATEGORIES
@@ -56,9 +60,11 @@ export default function Menu() {
   }, []);
 
   // filtre
-  const [selectedCategorieId, setSelectedCategorieId] = useState<number>(2);
+  const [selectedCategorieId, setSelectedCategorieId] = useState<
+    string | undefined
+  >(undefined);
   const selectedCategorie = categorie.find(
-    (categorie) => categorie.id === selectedCategorieId,
+    (categorie) => String(categorie.documentId) === selectedCategorieId,
   );
 
   // selection produit
@@ -82,12 +88,12 @@ export default function Menu() {
             return (
               <button
                 onClick={() => {
-                  setSelectedCategorieId(categorie.id);
+                  setSelectedCategorieId(String(categorie.documentId));
                 }}
                 className={` border bg-red-50 rounded-md text-sm text-nowrap px-4 py-3
             hover:text-red-900 hover:border-red-900 hover:cursor-pointer
              ${
-               categorie.id === selectedCategorieId
+               String(categorie.documentId) === selectedCategorieId
                  ? "text-red-900 border-red-900"
                  : "border-transparent bg-red-50"
              } `}
@@ -114,19 +120,19 @@ export default function Menu() {
         <div className="mb-20">
           {produit
             ?.filter((produit: typeProduit) => {
-              return produit.categorie?.id === selectedCategorieId;
+              return produit.categorie?.documentId === selectedCategorieId;
             })
             .map((produit: typeProduit) => {
               return (
                 <ComposantProduit
                   produit={{
-                    id: produit.id,
+                    documentId: produit.documentId,
                     nom: produit.nom,
                     description: produit.description,
                     prix: produit.prix,
                     image: produit.image,
                     categorie: {
-                      id: produit.categorie.id,
+                      documentId: produit.categorie.documentId,
                       nom: produit.categorie.nom,
                     },
                   }}
