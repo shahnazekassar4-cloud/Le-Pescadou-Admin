@@ -8,28 +8,14 @@ import { ChildrenEditCategories } from "../composants/ChildrenEditCategories";
 import { ChildrenEditDescriptionCatégorie } from "../composants/ChildrenEditDescriptionCatégorie";
 import { useEffect } from "react";
 import fetchJSON from "../backend/fetchJSON";
-
-export type typeProduit = {
-  documentId: string;
-  nom: string;
-  description: string;
-  prix: string;
-  image: string;
-  categorie: {
-    documentId: string;
-    nom: string;
-  };
-};
-export type typeCategorie = {
-  documentId: number;
-  nom: string;
-  description: string;
-};
+import type { typeCategorie, typeProduit } from "../type";
+import { useStore } from "../store";
 
 export default function Menu() {
   // CATEGORIES
-
   const [categories, setCategories] = useState<typeCategorie[]>([]);
+  const produits = useStore((store) => store.produits);
+  const getProduits = useStore((store) => store.getProduits);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -43,20 +29,6 @@ export default function Menu() {
       setSelectedCategorieId(reponse.data[0].documentId);
     };
     getCategories();
-  }, []);
-
-  // PARODUITS
-
-  const [produits, setProduits] = useState<typeProduit[]>([]);
-
-  const getProduits = async () => {
-    const reponse = await fetchJSON({
-      url: "produits?populate=categorie",
-      method: "GET",
-    });
-    setProduits(reponse.data);
-  };
-  useEffect(() => {
     getProduits();
   }, []);
 
@@ -137,7 +109,6 @@ export default function Menu() {
                     },
                   }}
                   onSelect={() => setSelectedProduit(produit)}
-                  refresh={getProduits}
                 />
               );
             })}

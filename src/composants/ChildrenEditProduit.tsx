@@ -1,10 +1,10 @@
 import { useState } from "react";
-import type { typeProduit } from "../pages/Menu";
+import type { typeProduit } from "../type";
 import fetchJSON from "../backend/fetchJSON";
+import { useStore } from "../store";
 
 type ChildrenEditProduitProps = {
   produit: typeProduit;
-  refresh: () => void;
 };
 export function ChildrenEditProduit(props: ChildrenEditProduitProps) {
   const [nom, setNom] = useState(props.produit.nom);
@@ -26,11 +26,12 @@ export function ChildrenEditProduit(props: ChildrenEditProduitProps) {
     });
   };
 
+  const getProduits = useStore((store) => store.getProduits);
   const handleUpdate = (e: any) => {
     // ca sert à ne pas recharger la page au submit
     e.preventDefault();
     putProduit();
-    props.refresh();
+    getProduits();
     return;
   };
 
