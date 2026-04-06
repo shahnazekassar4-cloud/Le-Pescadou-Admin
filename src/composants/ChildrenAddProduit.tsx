@@ -24,13 +24,13 @@ export function ChildrenAddProduit() {
     setNom("");
     setDescription("");
     setPrix("");
-    setSelectedCategorie(null);
+    setSelectedCategorie(undefined);
   };
 
   const [categories, setCategories] = useState<any[]>([]);
-  const [selectedCategorie, setSelectedCategorie] = useState<number | null>(
-    null,
-  );
+  const [selectedCategorie, setSelectedCategorie] = useState<
+    string | undefined
+  >(undefined);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -68,7 +68,7 @@ export function ChildrenAddProduit() {
       ></input>
       <select
         value={selectedCategorie ?? ""}
-        onChange={(e) => setSelectedCategorie(Number(e.target.value))}
+        onChange={(e) => setSelectedCategorie(e.target.value)}
         className="border rounded-sm"
       >
         <option value="" disabled>

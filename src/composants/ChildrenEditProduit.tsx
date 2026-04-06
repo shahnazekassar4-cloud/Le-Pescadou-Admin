@@ -4,14 +4,14 @@ import fetchJSON from "../backend/fetchJSON";
 
 type ChildrenEditProduitProps = {
   produit: typeProduit;
+  refresh: () => void;
 };
 export function ChildrenEditProduit(props: ChildrenEditProduitProps) {
   const [nom, setNom] = useState(props.produit.nom);
   const [description, setDescription] = useState(props.produit.description);
   const [prix, setPrix] = useState(props.produit.prix);
 
-  const putProduit = async (e: any) => {
-    e.preventDefault();
+  const putProduit = async () => {
     const reponse = await fetchJSON({
       url: `produits/${props.produit.documentId}`, // cible le produit existant
       method: "PUT",
@@ -24,11 +24,18 @@ export function ChildrenEditProduit(props: ChildrenEditProduitProps) {
         },
       },
     });
-    // mettre à jour la liste avec set produit!
+  };
+
+  const handleUpdate = (e: any) => {
+    // ca sert à ne pas recharger la page au submit
+    e.preventDefault();
+    putProduit();
+    props.refresh();
+    return;
   };
 
   return (
-    <form onSubmit={putProduit} className="flex flex-col gap-3">
+    <form onSubmit={handleUpdate} className="flex flex-col gap-3">
       <div className="hover:cursor-pointer border border-dashed  rounded-full aspect-square w-20 flex justify-center items-center text-center text-xl">
         +
       </div>
@@ -47,7 +54,6 @@ export function ChildrenEditProduit(props: ChildrenEditProduitProps) {
         value={prix}
         onChange={(e) => setPrix(e.target.value)}
       ></input>
-
       <button
         type="submit"
         className="hover:cursor-pointer bg-black text-white p-1 rounded"

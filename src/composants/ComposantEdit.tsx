@@ -3,8 +3,8 @@ import { useState, type ReactNode } from "react";
 import { Pen } from "lucide-react";
 
 type ComposantEditProps = {
-  children: ReactNode;
-  popupTitle: string;
+  children?: ReactNode;
+  popupTitle?: string;
   penSize: string;
   penColor: string;
   penStrokeWidth: string;

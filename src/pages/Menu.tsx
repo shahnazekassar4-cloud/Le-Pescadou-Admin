@@ -49,14 +49,14 @@ export default function Menu() {
 
   const [produits, setProduits] = useState<typeProduit[]>([]);
 
+  const getProduits = async () => {
+    const reponse = await fetchJSON({
+      url: "produits?populate=categorie",
+      method: "GET",
+    });
+    setProduits(reponse.data);
+  };
   useEffect(() => {
-    const getProduits = async () => {
-      const reponse = await fetchJSON({
-        url: "produits?populate=categorie",
-        method: "GET",
-      });
-      setProduits(reponse.data);
-    };
     getProduits();
   }, []);
 
@@ -78,6 +78,13 @@ export default function Menu() {
       <div className="sticky top-0 bg-white z-1">
         <Head />
         <div className="items-center font-semibold md:justify-center w-full flex gap-3 overflow-auto py-3 shadow-md px-3 -mt-5">
+          <ComposantEdit
+            children={<ChildrenEditCategories />}
+            penSize={"20"}
+            penColor={"#742a2a"}
+            penStrokeWidth={"2"}
+            popupTitle={"Modifier catégories"}
+          />{" "}
           {categories?.map((categorie: typeCategorie) => {
             return (
               <button
@@ -96,13 +103,6 @@ export default function Menu() {
               </button>
             );
           })}{" "}
-          <ComposantEdit
-            children={<ChildrenEditCategories />}
-            penSize={"20"}
-            penColor={"#742a2a"}
-            penStrokeWidth={"2"}
-            popupTitle={"Modifier catégories"}
-          />
         </div>
       </div>
 
@@ -115,7 +115,7 @@ export default function Menu() {
             penColor={"#000000"}
             penStrokeWidth={"2"}
             popupTitle={"Modifier description catégorie"}
-          ></ComposantEdit>
+          />
         </div>
         <div className="mb-20">
           {produits
@@ -137,6 +137,7 @@ export default function Menu() {
                     },
                   }}
                   onSelect={() => setSelectedProduit(produit)}
+                  refresh={getProduits}
                 />
               );
             })}
