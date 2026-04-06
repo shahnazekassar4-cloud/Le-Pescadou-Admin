@@ -29,7 +29,7 @@ export type typeCategorie = {
 export default function Menu() {
   // CATEGORIES
 
-  const [categorie, setCategorie] = useState<typeCategorie[]>([]);
+  const [categories, setCategories] = useState<typeCategorie[]>([]);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -39,14 +39,15 @@ export default function Menu() {
         url: "categories", //ca va tapper dans http:localhost:1337/api/produits | tu peux aller voir dans fetchJSON si tu veux voir comment ca marche
         method: "GET",
       });
-      setCategorie(reponse.data);
+      setCategories(reponse.data);
+      setSelectedCategorieId(reponse.data[0].documentId);
     };
     getCategories();
   }, []);
 
   // PARODUITS
 
-  const [produit, setProduit] = useState<typeProduit[]>([]);
+  const [produits, setProduits] = useState<typeProduit[]>([]);
 
   useEffect(() => {
     const getProduits = async () => {
@@ -54,7 +55,7 @@ export default function Menu() {
         url: "produits?populate=categorie",
         method: "GET",
       });
-      setProduit(reponse.data);
+      setProduits(reponse.data);
     };
     getProduits();
   }, []);
@@ -63,7 +64,7 @@ export default function Menu() {
   const [selectedCategorieId, setSelectedCategorieId] = useState<
     string | undefined
   >(undefined);
-  const selectedCategorie = categorie.find(
+  const selectedCategorie = categories.find(
     (categorie) => String(categorie.documentId) === selectedCategorieId,
   );
 
@@ -77,14 +78,7 @@ export default function Menu() {
       <div className="sticky top-0 bg-white z-1">
         <Head />
         <div className="items-center font-semibold md:justify-center w-full flex gap-3 overflow-auto py-3 shadow-md px-3 -mt-5">
-          <ComposantEdit
-            children={<ChildrenEditCategories />}
-            penSize={"20"}
-            penColor={"#742a2a"}
-            penStrokeWidth={"2"}
-            popupTitle={"Modifier catégories"}
-          />
-          {categorie?.map((categorie: typeCategorie) => {
+          {categories?.map((categorie: typeCategorie) => {
             return (
               <button
                 onClick={() => {
@@ -101,12 +95,20 @@ export default function Menu() {
                 {categorie.nom}
               </button>
             );
-          })}
+          })}{" "}
+          <ComposantEdit
+            children={<ChildrenEditCategories />}
+            penSize={"20"}
+            penColor={"#742a2a"}
+            penStrokeWidth={"2"}
+            popupTitle={"Modifier catégories"}
+          />
         </div>
       </div>
 
       <div className="overflow-auto md:mx-60">
         <div className="m-5 text-xs italic shadow-sm rounded-xl p-2 flex items-center gap-3">
+          <div className="w-full">{selectedCategorie?.description}</div>
           <ComposantEdit
             children={<ChildrenEditDescriptionCatégorie />}
             penSize={"12"}
@@ -114,11 +116,9 @@ export default function Menu() {
             penStrokeWidth={"2"}
             popupTitle={"Modifier description catégorie"}
           ></ComposantEdit>
-
-          <div className="w-full">{selectedCategorie?.description}</div>
         </div>
         <div className="mb-20">
-          {produit
+          {produits
             ?.filter((produit: typeProduit) => {
               return produit.categorie?.documentId === selectedCategorieId;
             })

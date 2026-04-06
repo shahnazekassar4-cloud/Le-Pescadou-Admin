@@ -24,6 +24,7 @@ export function ChildrenEditProduit(props: ChildrenEditProduitProps) {
         },
       },
     });
+    // mettre à jour la liste avec set produit!
   };
 
   return (
