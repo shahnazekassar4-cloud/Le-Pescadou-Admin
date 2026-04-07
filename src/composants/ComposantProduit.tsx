@@ -1,9 +1,8 @@
 import defautImg from "/imageProduitDefaut.png";
-import Popup from "./Popup";
-import { useState } from "react";
 import { ChildrenEditProduit } from "./ChildrenEditProduit";
 import type { typeProduit } from "../type";
-import { ComposantEdit } from "./ComposantEdit";
+import Popup from "./Popup";
+import { useState } from "react";
 
 type ComposantProduitProps = {
   produit: typeProduit;
@@ -12,6 +11,7 @@ type ComposantProduitProps = {
 
 export function ComposantProduit(props: ComposantProduitProps) {
   const { produit } = props;
+
   const [popupVisible, setPopupVisible] = useState<boolean>(false);
   const openPopup = () => {
     setPopupVisible(true);
@@ -34,19 +34,12 @@ export function ComposantProduit(props: ComposantProduitProps) {
         </div>
         <div className="text-sm italic ">{produit.description}</div>
       </div>
-      <div className="mt-5 ml-5">
-        {" "}
-        <ComposantEdit
-          penSize={"12"}
-          penColor={"#000000"}
-          penStrokeWidth={"2"}
-        />
-      </div>
+
       <Popup
         isVisible={popupVisible}
         onClose={closePopup}
         children={<ChildrenEditProduit produit={produit} />}
-        title={"Modifier produit"}
+        title={"Modifier ou supprimer le produit"}
       />
     </div>
   );

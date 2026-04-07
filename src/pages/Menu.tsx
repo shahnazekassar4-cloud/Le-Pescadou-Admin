@@ -2,7 +2,6 @@ import "../App.css";
 import { Head } from "../composants/Head";
 import { ComposantProduit } from "../composants/ComposantProduit";
 import { useState } from "react";
-import { ComposantAddProduit } from "../composants/ComposantAddProduit";
 import { ComposantEdit } from "../composants/ComposantEdit";
 import { ChildrenEditCategories } from "../composants/ChildrenEditCategories";
 import { ChildrenEditDescriptionCatégorie } from "../composants/ChildrenEditDescriptionCatégorie";
@@ -10,12 +9,13 @@ import { useEffect } from "react";
 import fetchJSON from "../backend/fetchJSON";
 import type { typeCategorie, typeProduit } from "../type";
 import { useStore } from "../store";
+import { ComposantAddProduit } from "../composants/ComposantAddProduit";
 
 export default function Menu() {
   // CATEGORIES
   const [categories, setCategories] = useState<typeCategorie[]>([]);
-  const produits = useStore((store) => store.produits);
-  const getProduits = useStore((store) => store.getProduits);
+  const produits = useStore((store: any) => store.produits);
+  const getProduits = useStore((store: any) => store.getProduits);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -57,24 +57,26 @@ export default function Menu() {
             penStrokeWidth={"2"}
             popupTitle={"Modifier catégories"}
           />{" "}
-          {categories?.map((categorie: typeCategorie) => {
-            return (
-              <button
-                onClick={() => {
-                  setSelectedCategorieId(String(categorie.documentId));
-                }}
-                className={` border bg-red-50 rounded-md text-sm text-nowrap px-4 py-3
+          {categories
+            ?.sort((a: any, b: any) => a.nom.localeCompare(b.nom))
+            .map((categorie: typeCategorie) => {
+              return (
+                <button
+                  onClick={() => {
+                    setSelectedCategorieId(String(categorie.documentId));
+                  }}
+                  className={` border bg-red-50 rounded-md text-sm text-nowrap px-4 py-3
             hover:text-red-900 hover:border-red-900 hover:cursor-pointer
              ${
                String(categorie.documentId) === selectedCategorieId
                  ? "text-red-900 border-red-900"
                  : "border-transparent bg-red-50"
              } `}
-              >
-                {categorie.nom}
-              </button>
-            );
-          })}{" "}
+                >
+                  {categorie.nom}
+                </button>
+              );
+            })}
         </div>
       </div>
 
@@ -94,6 +96,7 @@ export default function Menu() {
             ?.filter((produit: typeProduit) => {
               return produit.categorie?.documentId === selectedCategorieId;
             })
+            .sort((a: any, b: any) => a.nom.localeCompare(b.nom))
             .map((produit: typeProduit) => {
               return (
                 <ComposantProduit
@@ -114,7 +117,6 @@ export default function Menu() {
             })}
         </div>
       </div>
-
       <div className="fixed bottom-8 right-0 left-0">
         <ComposantAddProduit />
       </div>

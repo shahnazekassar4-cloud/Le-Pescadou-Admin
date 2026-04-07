@@ -18,10 +18,10 @@ export default function Popup(props: PopupProps) {
         onClick={props.onClose}
       >
         <div
-          className="w-full md:top-20 p-2 m-10 text-justify relative bg-white border-transparent rounded-md"
+          className="w-150 md:top-20 p-5 m-10 relative bg-white border-transparent rounded-md"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex justify-between ">
+          <div className="flex justify-center">
             {title && <b className="mb-3">{title}</b>}
             <button
               onClick={props.onClose}

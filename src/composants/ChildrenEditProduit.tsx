@@ -26,8 +26,16 @@ export function ChildrenEditProduit(props: ChildrenEditProduitProps) {
     });
   };
 
-  const getProduits = useStore((store) => store.getProduits);
-  const handleUpdate = (e: any) => {
+  const delProduit = async () => {
+    const reponse = await fetchJSON({
+      url: `produits/${props.produit.documentId}`, // cible le produit existant
+      method: "DELETE",
+    });
+  };
+
+  const getProduits = useStore((store: any) => store.getProduits);
+
+  const handleUpdateEdit = (e: any) => {
     // ca sert à ne pas recharger la page au submit
     e.preventDefault();
     putProduit();
@@ -35,32 +43,49 @@ export function ChildrenEditProduit(props: ChildrenEditProduitProps) {
     return;
   };
 
+  const handleUpdateDelete = (e: any) => {
+    e.preventDefault();
+    delProduit();
+    getProduits();
+    return;
+  };
   return (
-    <form onSubmit={handleUpdate} className="flex flex-col gap-3">
+    <form onSubmit={handleUpdateEdit} className="flex flex-col gap-3">
       <div className="hover:cursor-pointer border border-dashed  rounded-full aspect-square w-20 flex justify-center items-center text-center text-xl">
         +
       </div>
       <input
-        className="border rounded-sm"
+        placeholder="Nom du produit"
+        className="border rounded-sm px-2"
         value={nom}
         onChange={(e) => setNom(e.target.value)}
       ></input>
       <input
-        className="border rounded-sm"
+        placeholder="Description du produit"
+        className="border rounded-sm px-2"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       ></input>
       <input
-        className="border rounded-sm"
+        className="border rounded-sm px-2"
         value={prix}
         onChange={(e) => setPrix(e.target.value)}
+        placeholder="Prix du produit"
       ></input>
-      <button
-        type="submit"
-        className="hover:cursor-pointer bg-black text-white p-1 rounded"
-      >
-        Modifier produit{" "}
-      </button>
+      <div className="flex gap-5 justify-center">
+        <button
+          onClick={handleUpdateDelete}
+          className="w-50 hover:cursor-pointer bg-black text-white px-3 py-1 rounded"
+        >
+          SUPPRIMER
+        </button>
+        <button
+          type="submit"
+          className="w-50 hover:cursor-pointer bg-black text-white px-3 py-1 rounded"
+        >
+          MODIFIER
+        </button>
+      </div>
     </form>
   );
 }
