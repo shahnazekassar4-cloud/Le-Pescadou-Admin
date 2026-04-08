@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import fetchJSON from "../backend/fetchJSON";
 import { useStore } from "../store";
 
-export function ChildrenAddProduit() {
+type ChildrenAddProduitProps = { onClose: () => void; notifStatut: () => void };
+
+export function ChildrenAddProduit(props: ChildrenAddProduitProps) {
   const [nom, setNom] = useState("");
   const [description, setDescription] = useState("");
   const [prix, setPrix] = useState("");
@@ -48,52 +50,56 @@ export function ChildrenAddProduit() {
     e.preventDefault();
     postProduit();
     getProduits();
-    return;
+    props.onClose();
+    props.notifStatut();
   };
 
   return (
-    <form onSubmit={handleUpdate} className="flex flex-col gap-3">
-      <div className="hover:cursor-pointer border border-dashed  rounded-full aspect-square w-20 flex justify-center items-center text-center text-xl">
-        +
-      </div>
-      <input
-        placeholder="Nom du produit"
-        className="border rounded-sm px-2"
-        value={nom}
-        onChange={(e) => setNom(e.target.value)}
-      ></input>
-      <input
-        placeholder="Description du produit"
-        className="border rounded-sm px-2"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      ></input>
-      <input
-        placeholder="Prix du produit"
-        className="border rounded-sm px-2"
-        value={prix}
-        onChange={(e) => setPrix(e.target.value)}
-      ></input>
-      <select
-        value={selectedCategorie ?? ""}
-        onChange={(e) => setSelectedCategorie(e.target.value)}
-        className="border rounded-sm px-2"
-      >
-        <option value="" disabled>
-          Choisir une catégorie
-        </option>
-        {categories.map((cat) => (
-          <option key={cat.documentId} value={cat.documentId}>
-            {cat.nom}
+    <div>
+      {" "}
+      <form onSubmit={handleUpdate} className="flex flex-col gap-3">
+        <div className="hover:cursor-pointer border border-dashed  rounded-full aspect-square w-20 flex justify-center items-center text-center text-xl">
+          +
+        </div>
+        <input
+          placeholder="Nom du produit"
+          className="border rounded-sm px-2"
+          value={nom}
+          onChange={(e) => setNom(e.target.value)}
+        ></input>
+        <input
+          placeholder="Description du produit"
+          className="border rounded-sm px-2"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        ></input>
+        <input
+          placeholder="Prix du produit"
+          className="border rounded-sm px-2"
+          value={prix}
+          onChange={(e) => setPrix(e.target.value)}
+        ></input>
+        <select
+          value={selectedCategorie ?? ""}
+          onChange={(e) => setSelectedCategorie(e.target.value)}
+          className="border rounded-sm px-2"
+        >
+          <option value="" disabled>
+            Choisir une catégorie
           </option>
-        ))}
-      </select>
-      <button
-        type="submit"
-        className="hover:cursor-pointer bg-black text-white p-1 rounded"
-      >
-        Ajouter produit
-      </button>
-    </form>
+          {categories.map((cat) => (
+            <option key={cat.documentId} value={cat.documentId}>
+              {cat.nom}
+            </option>
+          ))}
+        </select>
+        <button
+          type="submit"
+          className="hover:cursor-pointer bg-black text-white p-1 rounded"
+        >
+          Ajouter produit
+        </button>
+      </form>
+    </div>
   );
 }

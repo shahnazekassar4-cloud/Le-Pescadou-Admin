@@ -14,7 +14,7 @@ export default function Popup(props: PopupProps) {
   if (isVisible)
     return (
       <div
-        className="w-screen flex justify-center items-center fixed top-0 left-0 bg-[#000000]/50 h-screen z-1"
+        className="w-screen flex justify-center items-center fixed top-0 left-0 bg-[#000000]/50 h-screen z-20"
         onClick={props.onClose}
       >
         <div
@@ -25,7 +25,7 @@ export default function Popup(props: PopupProps) {
             {title && <b className="mb-3">{title}</b>}
             <button
               onClick={props.onClose}
-              className="absolute top-3 right-2 bg-transparent border-transparent hover:cursor-pointer"
+              className="absolute top-6 right-5 bg-transparent border-transparent hover:cursor-pointer"
             >
               <XIcon />
             </button>

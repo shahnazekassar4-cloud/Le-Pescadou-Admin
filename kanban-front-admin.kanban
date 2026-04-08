@@ -5,15 +5,6 @@
       "title": "To Do",
       "cards": [
         {
-          "id": "604244ec-4f0c-461e-9afe-9a9558efbe78",
-          "listId": "70ef7162-505b-46b6-8adf-53f5c83d4e88",
-          "title": "popup ajouter produit : faire passer au premier plan",
-          "description": "",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        },
-        {
           "id": "c03d53f4-88f0-4207-a710-98a5eb85c16a",
           "listId": "70ef7162-505b-46b6-8adf-53f5c83d4e88",
           "title": "pourquoi la taille du texte popup title et popup children changeravce le props penSize",
@@ -26,15 +17,6 @@
           "id": "7d901e7c-ba58-4287-a668-6e5add7fa476",
           "listId": "70ef7162-505b-46b6-8adf-53f5c83d4e88",
           "title": "ajuster les popu en format ordinateur",
-          "description": "",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        },
-        {
-          "id": "cb886ae5-7058-4714-8bd8-d846a9c7f7bb",
-          "listId": "70ef7162-505b-46b6-8adf-53f5c83d4e88",
-          "title": "rendre le fond des pop up clicable , àa marche pour Ajouter un Porudit pourtant",
           "description": "",
           "labels": [],
           "checkboxes": [],
@@ -59,7 +41,44 @@
     {
       "id": "257810a8-fd74-42dd-bd99-8c79c347a47d",
       "title": "Done",
-      "cards": []
+      "cards": [
+        {
+          "id": "6682d75e-f8a4-4c27-8d54-3d8b7d1c8f49",
+          "listId": "257810a8-fd74-42dd-bd99-8c79c347a47d",
+          "title": "quand je quitte en dehors du div, y a quand même la notif qui apparait, changer la méthode",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "604244ec-4f0c-461e-9afe-9a9558efbe78",
+          "listId": "257810a8-fd74-42dd-bd99-8c79c347a47d",
+          "title": "popup ajouter produit : faire passer au premier plan",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "cb886ae5-7058-4714-8bd8-d846a9c7f7bb",
+          "listId": "257810a8-fd74-42dd-bd99-8c79c347a47d",
+          "title": "rendre le fond des pop up clicable , àa marche pour Ajouter un Porudit pourtant",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "668f324a-8af0-4a21-bf13-0ac252c984fa",
+          "listId": "257810a8-fd74-42dd-bd99-8c79c347a47d",
+          "title": "notification delete",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        }
+      ]
     }
   ],
   "archive": {

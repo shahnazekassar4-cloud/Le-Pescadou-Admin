@@ -10,6 +10,7 @@ import fetchJSON from "../backend/fetchJSON";
 import type { typeCategorie, typeProduit } from "../type";
 import { useStore } from "../store";
 import { ComposantAddProduit } from "../composants/ComposantAddProduit";
+import { NotificationValisation } from "../composants/NotificationValidation";
 
 export default function Menu() {
   // CATEGORIES
@@ -47,7 +48,7 @@ export default function Menu() {
 
   return (
     <div className="w-full">
-      <div className="sticky top-0 bg-white z-1">
+      <div className="z-10 sticky top-0 bg-white">
         <Head />
         <div className="items-center font-semibold md:justify-center w-full flex gap-3 overflow-auto py-3 shadow-md px-3 -mt-5">
           <ComposantEdit
@@ -117,7 +118,7 @@ export default function Menu() {
             })}
         </div>
       </div>
-      <div className="fixed bottom-8 right-0 left-0">
+      <div className="fixed bottom-8 right-0 left-0 z-20">
         <ComposantAddProduit />
       </div>
     </div>
