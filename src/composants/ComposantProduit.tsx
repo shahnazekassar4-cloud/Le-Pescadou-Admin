@@ -3,7 +3,7 @@ import { ChildrenEditProduit } from "./ChildrenEditProduit";
 import type { typeProduit } from "../type";
 import Popup from "./Popup";
 import { useState } from "react";
-import { NotificationSuppression } from "./NotificationSuppression";
+import { NotifDel, NotifEdit } from "./Notifications";
 
 type ComposantProduitProps = {
   produit: typeProduit;
@@ -14,16 +14,24 @@ export function ComposantProduit(props: ComposantProduitProps) {
   const { produit } = props;
 
   const [popupVisible, setPopupVisible] = useState<boolean>(false);
-  const [notifVisible, setNotifVisible] = useState<boolean>(false);
+
   const openPopup = () => {
     setPopupVisible(true);
   };
   const closePopup = () => {
     setPopupVisible(false);
   };
-  const openNotif = () => {
-    setNotifVisible(true);
-    setTimeout(() => setNotifVisible(false), 3000);
+  const [notifDelVisible, setNotifDelVisible] = useState<boolean>(false);
+
+  const openDelNotif = () => {
+    setNotifDelVisible(true);
+    setTimeout(() => setNotifDelVisible(false), 3000);
+  };
+  const [notifEditVisible, setNotifEditVisible] = useState<boolean>(false);
+
+  const openEditNotif = () => {
+    setNotifEditVisible(true);
+    setTimeout(() => setNotifEditVisible(false), 3000);
   };
 
   return (
@@ -46,14 +54,16 @@ export function ComposantProduit(props: ComposantProduitProps) {
           children={
             <ChildrenEditProduit
               produit={produit}
-              notifStatut={openNotif}
+              notifDelStatut={openDelNotif}
               onClose={closePopup}
+              notifEditStatut={openEditNotif}
             />
           }
           title={"Modifier ou supprimer le produit"}
         />{" "}
       </div>{" "}
-      <NotificationSuppression isVisible={notifVisible} />
+      <NotifDel isVisible={notifDelVisible} />{" "}
+      <NotifEdit isVisible={notifEditVisible} />
     </div>
   );
 }

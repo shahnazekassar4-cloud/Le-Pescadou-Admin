@@ -5,7 +5,8 @@ import { useStore } from "../store";
 
 type ChildrenEditProduitProps = {
   produit: typeProduit;
-  notifStatut: () => void;
+  notifDelStatut: () => void;
+  notifEditStatut: () => void;
   onClose: () => void;
 };
 export function ChildrenEditProduit(props: ChildrenEditProduitProps) {
@@ -42,6 +43,9 @@ export function ChildrenEditProduit(props: ChildrenEditProduitProps) {
     e.preventDefault();
     putProduit();
     getProduits();
+    props.notifEditStatut();
+    props.onClose();
+
     return;
   };
 
@@ -49,7 +53,7 @@ export function ChildrenEditProduit(props: ChildrenEditProduitProps) {
     e.preventDefault();
     delProduit();
     getProduits();
-    props.notifStatut();
+    props.notifDelStatut();
     props.onClose();
     return;
   };

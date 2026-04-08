@@ -1,7 +1,7 @@
 import Popup from "./Popup";
 import { useState } from "react";
 import { ChildrenAddProduit } from "./ChildrenAddProduit";
-import { NotificationValisation } from "./NotificationValidation";
+import { NotifAdd } from "./Notifications";
 
 export function ComposantAddProduit() {
   const [popupVisible, setPopupVisible] = useState<boolean>(false);
@@ -36,7 +36,7 @@ export function ComposantAddProduit() {
         }
         title="Ajouter produit"
       />
-      <NotificationValisation isVisible={notifVisible} />
+      <NotifAdd isVisible={notifVisible} />
     </div>
   );
 }

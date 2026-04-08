@@ -10,7 +10,7 @@ import fetchJSON from "../backend/fetchJSON";
 import type { typeCategorie, typeProduit } from "../type";
 import { useStore } from "../store";
 import { ComposantAddProduit } from "../composants/ComposantAddProduit";
-import { NotificationValisation } from "../composants/NotificationValidation";
+import { NotifAdd } from "../composants/Notifications";
 
 export default function Menu() {
   // CATEGORIES
