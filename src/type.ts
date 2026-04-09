@@ -9,7 +9,7 @@ export type typeProduit = {
   nom: string;
   description: string;
   prix: string;
-  image: string;
+  image: { id: number; url: string } | null;
   categorie: {
     documentId: string;
     nom: string;

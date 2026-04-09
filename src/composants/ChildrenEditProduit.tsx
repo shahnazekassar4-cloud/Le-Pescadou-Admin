@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { typeProduit } from "../type";
 import fetchJSON from "../backend/fetchJSON";
 import { useStore } from "../store";
+import { Bouton } from "./Bouton";
 
 type ChildrenEditProduitProps = {
   produit: typeProduit;
@@ -45,7 +46,6 @@ export function ChildrenEditProduit(props: ChildrenEditProduitProps) {
     getProduits();
     props.notifEditStatut();
     props.onClose();
-
     return;
   };
 
@@ -58,7 +58,7 @@ export function ChildrenEditProduit(props: ChildrenEditProduitProps) {
     return;
   };
   return (
-    <form onSubmit={handleUpdateEdit} className="flex flex-col gap-3">
+    <form className="flex flex-col gap-3">
       <div className="hover:cursor-pointer border border-dashed  rounded-full aspect-square w-20 flex justify-center items-center text-center text-xl">
         +
       </div>
@@ -81,18 +81,16 @@ export function ChildrenEditProduit(props: ChildrenEditProduitProps) {
         placeholder="Prix du produit"
       ></input>
       <div className="flex gap-5 justify-center">
-        <button
-          onClick={handleUpdateDelete}
-          className="w-50 hover:cursor-pointer bg-black text-white px-3 py-1 rounded"
-        >
-          SUPPRIMER
-        </button>
-        <button
-          type="submit"
-          className="w-50 hover:cursor-pointer bg-black text-white px-3 py-1 rounded"
-        >
-          MODIFIER
-        </button>
+        <Bouton
+          action={handleUpdateDelete}
+          style={"bg-white text-black hover:text-white hover:bg-red-900"}
+          nom={"SUPPRIMER"}
+        />
+        <Bouton
+          action={handleUpdateEdit}
+          style={"bg-black text-white hover:text-black hover:bg-white"}
+          nom={"MODIFIER"}
+        />
       </div>
     </form>
   );

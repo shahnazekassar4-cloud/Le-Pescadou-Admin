@@ -8,9 +8,10 @@ export const useStore = create((set, get) => ({
   produits: [],
   getProduits: async () => {
     const reponse = await fetchJSON({
-      url: "produits?populate=categorie",
+      url: "produits?populate=image,categorie",
       method: "GET",
     });
+
     set({ produits: reponse.data });
   },
 }));

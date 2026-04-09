@@ -14,7 +14,7 @@ export default function Popup(props: PopupProps) {
   if (isVisible)
     return (
       <div
-        className="w-screen flex justify-center items-center fixed top-0 left-0 bg-[#000000]/50 h-screen z-20"
+        className="w-screen flex justify-center items-center fixed top-0 left-0 bg-[#000000]/50 h-screen z-50"
         onClick={props.onClose}
       >
         <div

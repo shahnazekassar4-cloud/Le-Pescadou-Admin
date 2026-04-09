@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import fetchJSON from "../backend/fetchJSON";
 import { useStore } from "../store";
+import { Bouton } from "./Bouton";
 
 type ChildrenAddProduitProps = { onClose: () => void; notifStatut: () => void };
 
@@ -57,7 +58,7 @@ export function ChildrenAddProduit(props: ChildrenAddProduitProps) {
   return (
     <div>
       {" "}
-      <form onSubmit={handleUpdate} className="flex flex-col gap-3">
+      <form className="flex flex-col gap-3">
         <div className="hover:cursor-pointer border border-dashed  rounded-full aspect-square w-20 flex justify-center items-center text-center text-xl">
           +
         </div>
@@ -93,12 +94,11 @@ export function ChildrenAddProduit(props: ChildrenAddProduitProps) {
             </option>
           ))}
         </select>
-        <button
-          type="submit"
-          className="hover:cursor-pointer bg-black text-white p-1 rounded"
-        >
-          Ajouter produit
-        </button>
+        <Bouton
+          action={handleUpdate}
+          style={"bg-black text-white hover:text-black hover:bg-white"}
+          nom={"AJOUTER"}
+        />
       </form>
     </div>
   );
